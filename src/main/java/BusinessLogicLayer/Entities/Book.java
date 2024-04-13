@@ -1,8 +1,8 @@
-package Entities;
+package BusinessLogicLayer.Entities;
 
 import java.util.Objects;
 
-public class Book {
+public class Book implements Identifiable {
     private int id;
     private String title;
     private String author;

@@ -1,8 +1,8 @@
-package Entities;
+package BusinessLogicLayer.Entities;
 
 import java.util.Objects;
 
-public class Patron {
+public class Patron implements Identifiable {
     private int id;
     private String name;
     private String mobile;
