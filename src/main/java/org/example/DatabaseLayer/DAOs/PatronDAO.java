@@ -1,6 +1,6 @@
-package DatabaseLayer.DAOs;
+package org.example.DatabaseLayer.DAOs;
 
-import BusinessLogicLayer.Entities.Patron;
+import org.example.BusinessLogicLayer.Entities.Patron;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 

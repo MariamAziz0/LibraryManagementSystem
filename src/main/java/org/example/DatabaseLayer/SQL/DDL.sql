@@ -17,7 +17,7 @@ GO;
 CREATE TABLE PATRON (
     id INT PRIMARY KEY IDENTITY(1, 1),
     name VARCHAR(255),
-    mobile VARCHAR(50)
+    mobile VARCHAR(50) NOT NULL
 );
 GO;
 

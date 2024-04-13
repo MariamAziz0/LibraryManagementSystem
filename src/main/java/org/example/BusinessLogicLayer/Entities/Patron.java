@@ -1,4 +1,4 @@
-package BusinessLogicLayer.Entities;
+package org.example.BusinessLogicLayer.Entities;
 
 import java.util.Objects;
 

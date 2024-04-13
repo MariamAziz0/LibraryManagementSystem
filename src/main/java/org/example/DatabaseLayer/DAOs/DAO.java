@@ -1,6 +1,6 @@
-package DatabaseLayer.DAOs;
+package org.example.DatabaseLayer.DAOs;
 
-import BusinessLogicLayer.Entities.Identifiable;
+import org.example.BusinessLogicLayer.Entities.Identifiable;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -78,14 +78,10 @@ public abstract class DAO <T extends Identifiable>{
     }
 
     @Transactional
-    public boolean delete(T objOfTypeT) {
-        if (objOfTypeT == null) {
-            throw new IllegalArgumentException("Entity object to delete can't be null");
-        }
-
+    public boolean delete(int id) {
         try {
             String sql = "DELETE FROM " + relationName + " WHERE id = ?";
-            return jdbcTemplate.update(sql, objOfTypeT.getId()) > 0;
+            return jdbcTemplate.update(sql, id) > 0;
         }
 
         catch (Exception ex) {
