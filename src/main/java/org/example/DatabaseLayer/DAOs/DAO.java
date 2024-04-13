@@ -11,11 +11,9 @@ import java.util.Objects;
 
 public abstract class DAO <T extends Identifiable>{
     protected JdbcTemplate jdbcTemplate;
-    private Class<T> clazz;
     protected BeanPropertyRowMapper<T> rowMapper;
-    private String relationName;
+    private final String relationName;
 
-    public DAO() {}
 
     public DAO(JdbcTemplate jdbcTemplate, Class<T> clazz, String relationName) {
         if (jdbcTemplate == null || clazz == null) {
@@ -26,7 +24,6 @@ public abstract class DAO <T extends Identifiable>{
         }
 
         this.jdbcTemplate = jdbcTemplate;
-        this.clazz = clazz;
         this.rowMapper = new BeanPropertyRowMapper<>(clazz);
         this.rowMapper.setPrimitivesDefaultedForNullValue(true);
         this.relationName = relationName;
@@ -88,13 +85,5 @@ public abstract class DAO <T extends Identifiable>{
             System.out.println(this.getClass().getName() + ", Error in " + relationName + " delete(): " + ex.getMessage());
             return false;
         }
-    }
-
-    public Class<T> getClazz() {
-        return clazz;
-    }
-
-    public BeanPropertyRowMapper<T> getRowMapper() {
-        return rowMapper;
     }
 }

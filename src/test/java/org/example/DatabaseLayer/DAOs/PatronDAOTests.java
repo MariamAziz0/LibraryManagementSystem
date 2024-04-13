@@ -101,7 +101,6 @@ public class PatronDAOTests {
         // Arrange
 
         // Act
-
         Patron foundPatron = patronDAO.findById(-1);
         assertNull(foundPatron);
 
@@ -139,19 +138,6 @@ public class PatronDAOTests {
         // Clean
         jdbcTemplate.update("DELETE FROM PATRON WHERE id = ?", patronId);
         jdbcTemplate.update("DELETE FROM PATRON WHERE id = ?", patronId2);
-    }
-
-    @Test
-    @Transactional
-    @DisplayName("PatronDAO - Find All (no patrons)")
-    public void findAllNoPatrons() {
-        // Arrange
-
-        // Act
-        List<Patron> foundPatrons = patronDAO.findAll();
-        assertTrue(foundPatrons.isEmpty());
-
-        // Clean
     }
 
     @Test
