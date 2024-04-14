@@ -21,7 +21,7 @@ public class BorrowingDAOTests {
     private BorrowingDAO borrowingDAO;
     private Patron patron;
     private Book book;
-    DateTimeFormatter formatter;
+    private DateTimeFormatter formatter;
 
     @BeforeAll
     public void setUp() {
@@ -187,6 +187,30 @@ public class BorrowingDAOTests {
         assertFalse(borrowBook);
 
         // Clean
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("BorrowingDAO - Delete borrowed book")
+    public void deleteBorrowedBook() {
+        // Arrange
+        Borrowing borrowing = new Borrowing();
+
+        borrowing.setPatronId(patron.getId());
+        borrowing.setBookId(book.getId());
+        borrowing.setBorrowingDate(LocalDate.now().format(formatter));
+
+        // Act
+        boolean borrowBook = borrowingDAO.borrow(borrowing);
+        assertTrue(borrowBook);
+
+        PatronDAO patronDAO = new PatronDAO(jdbcTemplate);
+        boolean bookDeleted = patronDAO.delete(patron.getId());
+        assertFalse(bookDeleted);
+
+        // Clean
+        jdbcTemplate.update("DELETE FROM BORROWING WHERE patron_id = ? AND book_id = ?",
+                patron.getId(), book.getId());
     }
 
 

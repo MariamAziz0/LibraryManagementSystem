@@ -75,8 +75,15 @@ public abstract class DAO <T extends Identifiable>{
 
     @Transactional
     public boolean delete(int id) {
-        String sql = "DELETE FROM " + relationName + " WHERE id = ?";
+        try {
+            String sql = "DELETE FROM " + relationName + " WHERE id = ?";
 
-        return jdbcTemplate.update(sql, id) > 0;
+            return jdbcTemplate.update(sql, id) > 0;
+        }
+
+        catch (Exception e) {
+            System.out.println(this.getClass().getName() + ", Error in " + relationName + " findById(): " + e.getMessage());
+            return false;
+        }
     }
 }
