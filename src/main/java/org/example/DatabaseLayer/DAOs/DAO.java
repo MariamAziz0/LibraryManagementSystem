@@ -6,21 +6,26 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class DAO <T extends Identifiable>{
     protected JdbcTemplate jdbcTemplate;
     protected BeanPropertyRowMapper<T> rowMapper;
     private final String relationName;
 
+    private static final Set<String> VALID_RELATION_NAMES = new HashSet<>();
+    static {
+        VALID_RELATION_NAMES.add("BOOK");
+        VALID_RELATION_NAMES.add("PATRON");
+    }
 
     public DAO(JdbcTemplate jdbcTemplate, Class<T> clazz, String relationName) {
         if (jdbcTemplate == null || clazz == null) {
             throw new IllegalArgumentException("Abstract DAO attributes must be not null.");
         }
-        if (Objects.equals(relationName, "")) {
-            throw new IllegalArgumentException("Abstract DAO relationName can't be an empty string.");
+
+        if (!VALID_RELATION_NAMES.contains(relationName)) {
+            throw new IllegalArgumentException("Abstract DAO relationName is wrong " + relationName);
         }
 
         this.jdbcTemplate = jdbcTemplate;
@@ -63,27 +68,15 @@ public abstract class DAO <T extends Identifiable>{
 
     @Transactional
     public List<T> findAll() {
-        try {
-            String sql = "SELECT * FROM " + relationName;
-            return jdbcTemplate.query(sql, rowMapper);
-        }
+        String sql = "SELECT * FROM " + relationName;
 
-        catch (Exception e) {
-            System.out.println(this.getClass().getName() + ", Error in " + relationName + " findAll(): " + e.getMessage());
-            return null;
-        }
+        return jdbcTemplate.query(sql, rowMapper);
     }
 
     @Transactional
     public boolean delete(int id) {
-        try {
-            String sql = "DELETE FROM " + relationName + " WHERE id = ?";
-            return jdbcTemplate.update(sql, id) > 0;
-        }
+        String sql = "DELETE FROM " + relationName + " WHERE id = ?";
 
-        catch (Exception ex) {
-            System.out.println(this.getClass().getName() + ", Error in " + relationName + " delete(): " + ex.getMessage());
-            return false;
-        }
+        return jdbcTemplate.update(sql, id) > 0;
     }
 }

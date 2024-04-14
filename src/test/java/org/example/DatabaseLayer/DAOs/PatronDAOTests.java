@@ -211,4 +211,15 @@ public class PatronDAOTests {
         // Clean
     }
 
+    @Test
+    @Transactional
+    @DisplayName("PatronDAO - Update null patron")
+    public void updateNullPatron() {
+        // Arrange
+
+        // Act
+        assertThrows(IllegalArgumentException.class, () -> patronDAO.update(null));
+
+        // Clean
+    }
 }

@@ -7,12 +7,10 @@ public class Book implements Identifiable {
     private String title;
     private String author;
     private String publisher;
-    private int publication_year;
+    private int publicationYear;
     private String isbn;
 
     public Book() {}
-
-    public Book(int id, String title, String author, String publisher, int publication_year, String isbn) {}
 
     public int getId() {
         return id;
@@ -46,12 +44,12 @@ public class Book implements Identifiable {
         this.publisher = publisher;
     }
 
-    public int getPublication_year() {
-        return publication_year;
+    public int getPublicationYear() {
+        return publicationYear;
     }
 
-    public void setPublication_year(int publication_year) {
-        this.publication_year = publication_year;
+    public void setPublicationYear(int publicationYear) {
+        this.publicationYear = publicationYear;
     }
 
     public String getIsbn() {
@@ -67,12 +65,12 @@ public class Book implements Identifiable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && publication_year == book.publication_year && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(publisher, book.publisher) && Objects.equals(isbn, book.isbn);
+        return id == book.id && publicationYear == book.publicationYear && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(publisher, book.publisher) && Objects.equals(isbn, book.isbn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, author, publisher, publication_year, isbn);
+        return Objects.hash(id, title, author, publisher, publicationYear, isbn);
     }
 
     @Override
@@ -82,7 +80,7 @@ public class Book implements Identifiable {
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", publisher='" + publisher + '\'' +
-                ", publication_year=" + publication_year +
+                ", publication_year=" + publicationYear +
                 ", isbn='" + isbn + '\'' +
                 '}';
     }

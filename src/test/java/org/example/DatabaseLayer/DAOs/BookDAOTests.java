@@ -34,7 +34,7 @@ public class BookDAOTests {
         book.setAuthor("New Author");
         book.setPublisher("New Publisher");
         book.setIsbn("000-0-00-000000-0");
-        book.setPublication_year(2015);
+        book.setPublicationYear(2015);
 
         // Act
         int bookId = bookDAO.create(book);
@@ -81,7 +81,7 @@ public class BookDAOTests {
         book.setAuthor("New Author");
         book.setPublisher("New Publisher");
         book.setIsbn("000-0-00-000000-0");
-        book.setPublication_year(2015);
+        book.setPublicationYear(2015);
 
         // Act
         int bookId = bookDAO.create(book);
@@ -120,14 +120,14 @@ public class BookDAOTests {
         book.setAuthor("New Author");
         book.setPublisher("New Publisher");
         book.setIsbn("000-0-00-000000-0");
-        book.setPublication_year(2015);
+        book.setPublicationYear(2015);
 
         Book book2 = new Book();
         book2.setTitle("New Title2");
         book2.setAuthor("New Author2");
         book2.setPublisher("New Publisher2");
         book2.setIsbn("111-1-11-111111-1");
-        book2.setPublication_year(2015);
+        book2.setPublicationYear(2015);
 
         // Act
         int bookId = bookDAO.create(book);
@@ -160,7 +160,7 @@ public class BookDAOTests {
         book.setAuthor("New Author");
         book.setPublisher("New Publisher");
         book.setIsbn("000-0-00-000000-0");
-        book.setPublication_year(2015);
+        book.setPublicationYear(2015);
 
         // Act
         int bookId = bookDAO.create(book);
@@ -194,7 +194,7 @@ public class BookDAOTests {
         book.setAuthor("New Author");
         book.setPublisher("New Publisher");
         book.setIsbn("000-0-00-000000-0");
-        book.setPublication_year(2015);
+        book.setPublicationYear(2015);
 
         // Act
         int bookId = bookDAO.create(book);
@@ -221,6 +221,18 @@ public class BookDAOTests {
 
         // Act
         assertFalse(bookDAO.update(book));
+
+        // Clean
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("BookDAO - Update null book")
+    public void updateNullBook() {
+        // Arrange
+
+        // Act
+        assertThrows(IllegalArgumentException.class, () -> bookDAO.update(null));
 
         // Clean
     }

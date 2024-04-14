@@ -12,6 +12,10 @@ public class BookDAO extends DAO<Book> {
 
     @Transactional
     public boolean update(Book book) {
+        if (book == null) {
+            throw new IllegalArgumentException("Entity object to create can't be null");
+        }
+
         String sql = """
                 UPDATE BOOK
                 SET title = ?, author = ?, publisher = ?,
@@ -20,7 +24,7 @@ public class BookDAO extends DAO<Book> {
                 """;
 
         int rowsAffected = jdbcTemplate.update(sql, book.getTitle(), book.getAuthor(),
-                book.getPublisher(), book.getPublication_year(), book.getIsbn(), book.getId());
+                book.getPublisher(), book.getPublicationYear(), book.getIsbn(), book.getId());
 
         return rowsAffected > 0;
     }

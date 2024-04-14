@@ -12,6 +12,10 @@ public class PatronDAO extends DAO<Patron> {
 
     @Transactional
     public boolean update(Patron patron) {
+        if (patron == null) {
+            throw new IllegalArgumentException("Entity object to create can't be null");
+        }
+
         String sql = """
                 UPDATE PATRON
                 SET name = ?, mobile = ?
