@@ -17,7 +17,7 @@ GO;
 CREATE TABLE PATRON (
     id INT PRIMARY KEY IDENTITY(1, 1),
     name VARCHAR(255),
-    mobile VARCHAR(50)
+    mobile VARCHAR(50) NOT NULL
 );
 GO;
 
@@ -25,7 +25,8 @@ CREATE TABLE BORROWING (
     patron_id INT,
     book_id INT,
     borrowing_date DATE NOT NULL,
-    return_date DATE NOT NULL,
+    return_date DATE,
+    PRIMARY KEY (patron_id, book_id),
     FOREIGN KEY (patron_id) REFERENCES PATRON(id),
     FOREIGN KEY (book_id) REFERENCES BOOK(id)
 );
